@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appToken: MyString
+  number: 1
+  messageCount: 1
+
+two:
+  appToken: MyString
+  number: 1
+  messageCount: 1

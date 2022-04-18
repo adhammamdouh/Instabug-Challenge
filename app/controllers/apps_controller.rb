@@ -16,9 +16,9 @@ class AppsController < ApplicationController
   # POST /apps
   def create
     @app = App.new(app_params)
-
+    
     if @app.save
-      render json: @app, status: :created, location: @app
+      render json: @app.except("id"), status: :created, location: @app
     else
       render json: @app.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class AppsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def app_params
-      params.require(:app).permit(:token, :name, :chatCount)
+      params.require(:app).permit(:name)
     end
 end
