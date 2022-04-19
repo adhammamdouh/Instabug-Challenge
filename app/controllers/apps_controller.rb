@@ -5,23 +5,23 @@ class AppsController < ApplicationController
   def index
     @apps = App.all
 
-    render json: @apps
+    json_response(@apps.as_json(except: [:id]))
   end
 
   # GET /apps/:token
   def show
-    render json: @app
+    render json: @app.as_json(except: [:id])
   end
 
   # POST /apps
   def create
-    @app = App.new(app_params)
+    @app = App.create!(app_params)
     
-    if @app.save
-      render json: @app.as_json(except: [:id]), status: :created, location: @app
-    else
-      render json: @app.errors, status: :unprocessable_entity
-    end
+    json_response(@apps, :created)
+    #if @app.save
+    #else
+    #  render json: @app.errors, status: :unprocessable_entity
+    #end
   end
 
   # PATCH/PUT /apps/1
@@ -41,7 +41,9 @@ class AppsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_app
-      @app = App.find_by!(token: params[:id])
+      @app = App.find_by!(token: params[:token])
+      rescue
+        render json: @app.errors, status: 404
     end
 
     # Only allow a trusted parameter "white list" through.

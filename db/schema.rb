@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220418213646) do
+ActiveRecord::Schema.define(version: 20220419014838) do
 
   create_table "apps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3" do |t|
     t.string "token"
     t.string "name"
-    t.integer "chatCount"
+    t.integer "chatCount", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_apps_on_token", unique: true
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20220418213646) do
   create_table "chats", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3" do |t|
     t.string "appToken"
     t.integer "number"
-    t.integer "messageCount"
+    t.integer "messageCount", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["appToken"], name: "fk_rails_87fbdb9ebe"
