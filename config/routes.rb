@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     get "/apps", to: "apps#index"
     post "/apps", to: "apps#create"
     get "/apps/:token", to: "apps#show"
-    put "/apps/:token", to: "apps#update"
-    delete "/apps/:token", to: "apps#destroy"
+    # put "/apps/:token", to: "apps#update"
+    # delete "/apps/:token", to: "apps#destroy"
 
   # End Apps Routes
 
@@ -20,8 +20,8 @@ Rails.application.routes.draw do
     get "/apps/:app_token/chats", to: "chats#index"
     post "/apps/:app_token/chats", to: "chats#create"
     get "/apps/:app_token/chats/:number", to: "chats#show"
-    put "/apps/:app_token/chats/:number", to: "chats#update"
-    delete "/apps/:app_token/chats/:number", to: "chats#destroy"
+    # put "/apps/:app_token/chats/:number", to: "chats#update"
+    # delete "/apps/:app_token/chats/:number", to: "chats#destroy"
 
   # End Chat Routes
 
@@ -30,8 +30,8 @@ Rails.application.routes.draw do
     get "/apps/:app_token/chats/:chat_number/messages", to: "messages#index"
     post "/apps/:app_token/chats/:chat_number/messages", to: "messages#create"
     get "/apps/:app_token/chats/:chat_number/messages/:number", to: "messages#show"
-    put "/apps/:app_token/chats/:chat_number/messages/:number", to: "messages#update"
-    delete "/apps/:app_token/chats/:chat_number/messages/:number", to: "messages#destroy"
+    # put "/apps/:app_token/chats/:chat_number/messages/:number", to: "messages#update"
+    # delete "/apps/:app_token/chats/:chat_number/messages/:number", to: "messages#destroy"
   
   # End message Routes
 end
