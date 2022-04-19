@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :set_app, only: [:show, :update, :destroy]
+  before_action :set_app, only: [:show]
 
   # GET /apps
   def index
@@ -15,9 +15,10 @@ class AppsController < ApplicationController
 
   # POST /apps
   def create
+    # if params.presence
     @app = App.create!(app_params)
     
-    json_response(@apps, :created)
+    json_response({ token: @app.token }, :created)
     #if @app.save
     #else
     #  render json: @app.errors, status: :unprocessable_entity
@@ -25,25 +26,23 @@ class AppsController < ApplicationController
   end
 
   # PATCH/PUT /apps/1
-  def update
-    if @app.update(app_params)
-      render json: @app
-    else
-      render json: @app.errors, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @app.update(app_params)
+  #     render json: @app
+  #   else
+  #     render json: @app.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /apps/1
-  def destroy
-    @app.destroy
-  end
+  # def destroy
+  #   @app.destroy
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_app
       @app = App.find_by!(token: params[:token])
-      rescue
-        render json: @app.errors, status: 404
     end
 
     # Only allow a trusted parameter "white list" through.
