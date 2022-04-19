@@ -1,4 +1,5 @@
 class ChatsController < ApplicationController
+  before_action :set_app
   before_action :set_chat, only: [:show, :update, :destroy]
 
   # GET /chats
@@ -15,10 +16,10 @@ class ChatsController < ApplicationController
 
   # POST /chats
   def create
-    @chat = Chat.new(chat_params)
+    @chat = Chat.new(appToken: @app.token, number: 12)
 
     if @chat.save
-      render json: @chat, status: :created, location: @chat
+      render json: @chat, status: :created
     else
       render json: @chat.errors, status: :unprocessable_entity
     end
@@ -39,13 +40,16 @@ class ChatsController < ApplicationController
   end
 
   private
+    def set_app
+      @app = App.find_by!(token: params[:app_id]) #TODO change to app token
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_chat
-      @chat = Chat.find(params[:id])
+      @chat = Chat.where(appToken: params[:app_id], number: params[:id]) #TODO change to chat number
     end
 
     # Only allow a trusted parameter "white list" through.
     def chat_params
-      params.require(:chat).permit(:appToken, :number, :messageCount)
+      params.require(:chat).permit(:number)
     end
 end

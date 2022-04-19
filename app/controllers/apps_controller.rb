@@ -8,7 +8,7 @@ class AppsController < ApplicationController
     render json: @apps
   end
 
-  # GET /apps/1
+  # GET /apps/:token
   def show
     render json: @app
   end
@@ -18,7 +18,7 @@ class AppsController < ApplicationController
     @app = App.new(app_params)
     
     if @app.save
-      render json: @app.except("id"), status: :created, location: @app
+      render json: @app.as_json(except: [:id]), status: :created, location: @app
     else
       render json: @app.errors, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class AppsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_app
-      @app = App.find(params[:id])
+      @app = App.find_by!(token: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
