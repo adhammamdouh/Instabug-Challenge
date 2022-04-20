@@ -1,55 +1,52 @@
 class ChatsController < ApplicationController
-  before_action :set_app
-  before_action :set_chat, only: [:show, :update, :destroy]
+  before_action :set_app, only: [:create]
+  before_action :set_chat, only: [:show]
 
   # GET /chats
   def index
-    @chats = Chat.all
+    @chats = Chat.all.where(appToken: params[:app_token])
 
-    render json: @chats
+    json_response(@chats.to_json(except: [:id]))
   end
 
   # GET /chats/1
   def show
-    render json: @chat
+    json_response(@chat.to_json(except: [:id]))
   end
 
   # POST /chats
   def create
-    @chat = Chat.new(appToken: @app.token, number: 12)
+    @validation_chat = Chat.new(appToken: params[:app_token], number: 0)
+    raise ActiveRecord::RecordInvalid.new(@validation_chat) if !@validation_chat.valid?
 
-    if @chat.save
-      render json: @chat, status: :created
-    else
-      render json: @chat.errors, status: :unprocessable_entity
-    end
+    @chat_number = $redis.incr(params[:app_token] +'-chat_number')
+    
+    ChatJob.perform_later(params[:app_token], @chat_number)
+    
+    json_response(@chat_number)
   end
 
-  # PATCH/PUT /chats/1
-  def update
-    if @chat.update(chat_params)
-      render json: @chat
-    else
-      render json: @chat.errors, status: :unprocessable_entity
-    end
-  end
+  # # PATCH/PUT /chats/1
+  # def update
+  #   if @chat.update(chat_params)
+  #     render json: @chat
+  #   else
+  #     render json: @chat.errors, status: :unprocessable_entity
+  #   end
+  # end
 
-  # DELETE /chats/1
-  def destroy
-    @chat.destroy
-  end
+  # # DELETE /chats/1
+  # def destroy
+  #   @chat.destroy
+  # end
 
   private
     def set_app
-      @app = App.find_by!(token: params[:app_id]) #TODO change to app token
-    end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chat
-      @chat = Chat.where(appToken: params[:app_id], number: params[:id]) #TODO change to chat number
+      @app = App.find_by!(token: params[:app_token])
     end
 
-    # Only allow a trusted parameter "white list" through.
-    def chat_params
-      params.require(:chat).permit(:number)
+    def set_chat
+      @chat = Chat.find_by!(appToken: params[:app_token], number: params[:number])
     end
+
 end

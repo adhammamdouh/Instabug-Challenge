@@ -1,51 +1,59 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :update, :destroy]
+  before_action :set_chat
+  before_action :set_message, only: [:show, :update]
 
   # GET /messages
   def index
-    @messages = Message.all
+    @messages = Message.all.where(chat_id: @chat.id)
 
-    render json: @messages
+    json_response(@messages.to_json(except: [:id, :chat_id]))
   end
 
   # GET /messages/1
   def show
-    render json: @message
+    json_response(@message.to_json(except: [:id, :chat_id]))
   end
 
   # POST /messages
   def create
-    @message = Message.new(message_params)
+    @valiation_message = Message.new(chat_id: @chat.id, number: 0, content: message_params[:content]) 
+    raise ActiveRecord::RecordInvalid.new(@valiation_message) if !@valiation_message.valid?
 
-    if @message.save
-      render json: @message, status: :created, location: @message
-    else
-      render json: @message.errors, status: :unprocessable_entity
-    end
+    @message_number = $redis.incr(params[:app_token] +'-chat_number-' + params[:chat_number] + '-message_number')
+    
+    MessageJob.perform_later(@chat.id, @message_number, message_params[:content])
+    
+    json_response(@message_number)
+    
   end
 
   # PATCH/PUT /messages/1
   def update
-    if @message.update(message_params)
-      render json: @message
-    else
-      render json: @message.errors, status: :unprocessable_entity
-    end
+    @valiation_message = Message.new(chat_id: @chat.id, number: 0, content: message_params[:content]) 
+    raise ActiveRecord::RecordInvalid.new(@valiation_message) if !@valiation_message.valid?
+
+    @message.update!(message_params)
+    
+    json_response({ message: "message(" +params[:number] + ") updated successfully." })
+
   end
 
   # DELETE /messages/1
-  def destroy
-    @message.destroy
-  end
+  # def destroy
+  #   @message.destroy
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      @message = Message.find(params[:id])
+    def set_chat
+      @chat = Chat.find_by!(appToken: params[:app_token], number: params[:chat_number])
     end
 
-    # Only allow a trusted parameter "white list" through.
+    def set_message
+      @message = Message.find_by!(chat_id: @chat.id, number: params[:number])
+    end
+
     def message_params
-      params.require(:message).permit(:chat_id, :number, :content)
+      params.require(:message).permit(:content)
     end
 end
