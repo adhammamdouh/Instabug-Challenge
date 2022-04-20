@@ -27,7 +27,6 @@ gem 'puma', '~> 3.7'
 
 gem 'redis'
 gem 'redis-namespace'
-gem 'redis-rails'
 gem 'sidekiq'
 
 group :development, :test do

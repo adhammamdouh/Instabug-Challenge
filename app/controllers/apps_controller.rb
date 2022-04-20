@@ -15,14 +15,14 @@ class AppsController < ApplicationController
 
   # POST /apps
   def create
-    # if params.presence
+
+    @validation_app = App.new(app_params)
+    raise ActiveRecord::RecordInvalid.new(@validation_app) if !@validation_app.valid?
+    
     @app = App.create!(app_params)
     
     json_response({ token: @app.token }, :created)
-    #if @app.save
-    #else
-    #  render json: @app.errors, status: :unprocessable_entity
-    #end
+    
   end
 
   # PATCH/PUT /apps/1
@@ -32,11 +32,6 @@ class AppsController < ApplicationController
   #   else
   #     render json: @app.errors, status: :unprocessable_entity
   #   end
-  # end
-
-  # DELETE /apps/1
-  # def destroy
-  #   @app.destroy
   # end
 
   private
