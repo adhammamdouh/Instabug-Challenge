@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :set_app, only: [:show]
+  before_action :set_app, only: [:show, :update]
 
   # GET /apps
   def index
@@ -26,13 +26,14 @@ class AppsController < ApplicationController
   end
 
   # PATCH/PUT /apps/1
-  # def update
-  #   if @app.update(app_params)
-  #     render json: @app
-  #   else
-  #     render json: @app.errors, status: :unprocessable_entity
-  #   end
-  # end
+  def update
+    @validation_app = App.new(app_params)
+    raise ActiveRecord::RecordInvalid.new(@validation_app) if !@validation_app.valid?
+
+    @app.update!(name: app_params[:name])
+
+    json_response({ message: "App(" + params[:token]+ ") update successfully." })
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
