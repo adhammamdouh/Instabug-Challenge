@@ -38,6 +38,12 @@ class MessagesController < ApplicationController
 
   end
 
+  def search
+    @messages = Message.search(@chat.id, params[:query])
+    json_response(@messages)
+  end
+
+
   # DELETE /messages/1
   # def destroy
   #   @message.destroy
