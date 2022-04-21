@@ -11,7 +11,6 @@ class Message < ApplicationRecord
 #   document_type 'message'
 
   
-#   #{ number_of_shards: 1 }
   settings index: { :number_of_shards => 1  } do
 
     mapping dynamic: false do
@@ -20,18 +19,14 @@ class Message < ApplicationRecord
     end
   end
 
-  #Message.import(force: true)
-
   def as_indexed_json(options = nil)
 
-    self.as_json( only: [ :chat_id, :content, :number, :created_at, :updated_at ] )
+    self.as_json( only: [ :content, :number, :created_at, :updated_at ] )
   end
 
   def self.search(chat_id, query)
-    __elasticsearch__.search(
-
-      {
-   
+    @messages = []
+    @docs = __elasticsearch__.search({
         query: {
           constant_score: {
             filter: {
@@ -40,19 +35,29 @@ class Message < ApplicationRecord
               }
             }
           }
-          
-   
         },
-   
-         # more blocks will go IN HERE. Keep reading!
-   
-      }
-    )
+        query: {
+          regexp: {
+            content: ".*" + query + ".*"
+          }
+          # wildcard: {
+          #   content: '*' + query + '*'
+          # }
+        },
+      })
+
+    @docs.each { |doc|
+      @messages << doc[:_source]
+    }
+    return @messages
   end
 
-  # multi_match: {
-  #   query: query,
-  #   fields: ['content']
+  # filter: {
+
+  #   terms: {
+  #     chat_id: chat_id
+  #   }
+  
   # }
 
 end
