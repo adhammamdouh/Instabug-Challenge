@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220421203211) do
+ActiveRecord::Schema.define(version: 20220421203839) do
 
   create_table "apps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3" do |t|
     t.string "token"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20220421203211) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id", "number"], name: "index_messages_on_chat_id_and_number"
-    t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
   add_foreign_key "chats", "apps", column: "appToken", primary_key: "token"
