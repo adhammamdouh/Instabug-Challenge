@@ -29,6 +29,7 @@ gem 'redis'
 gem 'redis-namespace'
 
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'

@@ -44,6 +44,7 @@ GEM
     concurrent-ruby (1.1.10)
     connection_pool (2.2.5)
     crass (1.0.6)
+    e2mmap (0.1.0)
     elasticsearch (7.17.1)
       elasticsearch-api (= 7.17.1)
       elasticsearch-transport (= 7.17.1)
@@ -58,6 +59,8 @@ GEM
       faraday (~> 1)
       multi_json
     erubi (1.10.0)
+    et-orbi (1.2.7)
+      tzinfo
     faraday (1.10.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -82,6 +85,9 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.15.5)
+    fugit (1.5.3)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
@@ -110,6 +116,7 @@ GEM
     nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     puma (3.12.6)
+    raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -146,10 +153,19 @@ GEM
       redis (>= 3.0.4)
     ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
+    rufus-scheduler (3.8.1)
+      fugit (~> 1.1, >= 1.1.6)
     sidekiq (6.4.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-scheduler (3.2.0)
+      e2mmap
+      redis (>= 3, < 5)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 3)
+      thwait
+      tilt (>= 1.4.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -163,6 +179,9 @@ GEM
       sprockets (>= 3.0.0)
     thor (1.2.1)
     thread_safe (0.3.6)
+    thwait (0.2.0)
+      e2mmap
+    tilt (2.0.10)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     websocket-driver (0.6.5)
@@ -184,6 +203,7 @@ DEPENDENCIES
   redis
   redis-namespace
   sidekiq
+  sidekiq-scheduler
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

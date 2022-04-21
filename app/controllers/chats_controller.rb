@@ -26,20 +26,6 @@ class ChatsController < ApplicationController
     json_response(@chat_number)
   end
 
-  # # PATCH/PUT /chats/1
-  # def update
-  #   if @chat.update(chat_params)
-  #     render json: @chat
-  #   else
-  #     render json: @chat.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # # DELETE /chats/1
-  # def destroy
-  #   @chat.destroy
-  # end
-
   private
     def set_app
       @app = App.find_by!(token: params[:app_token])

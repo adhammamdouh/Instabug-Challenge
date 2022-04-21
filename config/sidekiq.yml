@@ -1,0 +1,7 @@
+:schedule:
+  chat_app_counter:
+    every: '5m' #'1m'   # Runs once per minute
+    class: AppChatCounterJob
+  chat_messages_counter:
+    every: '5m'
+    class: ChatMessageCounterJob
