@@ -7,8 +7,8 @@ class Message < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-#   index_name 'Instabug_challenge'
-#   document_type 'message'
+  index_name Rails.application.class.parent_name.underscore
+  document_type self.name.downcase
 
   
   settings index: { :number_of_shards => 1  } do
@@ -52,15 +52,5 @@ class Message < ApplicationRecord
     return @messages
   end
 
-  # filter: {
-
-  #   terms: {
-  #     chat_id: chat_id
-  #   }
-  
-  # }
-
 end
 
-Message.__elasticsearch__.create_index!
-Message.import
