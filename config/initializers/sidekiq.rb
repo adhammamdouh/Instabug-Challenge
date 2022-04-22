@@ -1,7 +1,7 @@
 require 'redis-namespace'
 
 redis_config = {
-  url: ENV['REDIS_URL'],
+  url: ENV.fetch('REDIS_URL_SIDEKIQ', 'redis://localhost:6379/1'),
   namespace: "Instabug-Challenge"
 }
 
