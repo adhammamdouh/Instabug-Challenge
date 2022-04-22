@@ -43,14 +43,7 @@ class MessagesController < ApplicationController
     json_response(@messages)
   end
 
-
-  # DELETE /messages/1
-  # def destroy
-  #   @message.destroy
-  # end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_chat
       @chat = Chat.find_by!(appToken: params[:app_token], number: params[:chat_number])
     end
