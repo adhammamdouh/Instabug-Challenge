@@ -43,8 +43,11 @@ class MessagesController < ApplicationController
       json_response({ message: "parameter query is missing" })
       return
     end
+    
+    @query = query_params[:query].to_s.strip.gsub(/\s+/, " ")
+    @query_terms_count = @query.split.length()
 
-    @messages = Message.search(@chat.id, query_params[:query])
+    @messages = Message.search(@chat.id, @query, @query_terms_count)
     json_response(@messages)
   end
 

@@ -10,7 +10,6 @@ class Message < ApplicationRecord
   index_name Rails.application.class.parent_name.underscore
   document_type self.name.downcase
 
-  
   settings index: { :number_of_shards => 1  } do
 
     mapping dynamic: false do
@@ -21,35 +20,28 @@ class Message < ApplicationRecord
 
   def as_indexed_json(options = nil)
 
-    self.as_json( only: [ :content, :number, :created_at, :updated_at ] )
+    self.as_json( only: [ :chat_id, :content ] )
   end
 
-  def self.search(chat_id, query)
-    @messages = []
-    @docs = __elasticsearch__.search({
-        query: {
-          constant_score: {
-            filter: {
-              term: {
-                chat_id: chat_id
-              }
-            }
+  def self.search(chat_id, query, query_terms_count)
+    #return {c: chat_id, q: query}
+    __elasticsearch__.search(
+    min_score: 1.0 * query_terms_count,
+    query: { 
+      bool: { 
+        must: {
+          query_string: {
+            query: "*"+query.to_s+"*",
+            fields: ['content'],
           }
         },
-        query: {
-          regexp: {
-            content: ".*" + query + ".*"
+        filter: {
+          term: {
+            "chat_id" => chat_id
           }
-          # wildcard: {
-          #   content: '*' + query + '*'
-          # }
-        },
-      })
-
-    @docs.each { |doc|
-      @messages << doc[:_source]
-    }
-    return @messages
+        }
+      },
+    }).records.to_json(except: [:id, :chat_id])
   end
 
 end

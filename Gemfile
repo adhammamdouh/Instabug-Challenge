@@ -33,6 +33,7 @@ gem 'sidekiq-scheduler'
 
 gem  'elasticsearch', "< 7.14"
 gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
