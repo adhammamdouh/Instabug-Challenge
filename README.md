@@ -18,7 +18,7 @@ Install docker and docker-compose before starting this installation process.
 2. Open terminal and cd to the repository folder
 3. Make sure that these ports are available. 
 ```Port:9200 (Elasticsearch)``` ```Port:6379 (Redis)``` ```Port:3306 (mysql)``` ```Port:3000 (API)```  
-4. In terminal execute the following com ```docker-compose up```
+4. In terminal execute the following command ```docker-compose up```
 
 # Database
 ### Description
