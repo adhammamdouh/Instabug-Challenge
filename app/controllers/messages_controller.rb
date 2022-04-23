@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
     
     MessageJob.perform_later(@chat.id, @message_number, message_params[:content])
     
-    json_response(@message_number)
+    json_response({ number: @message_number })
     
   end
 
@@ -34,12 +34,17 @@ class MessagesController < ApplicationController
 
     @message.update!(message_params)
     
-    json_response({ message: "message(" +params[:number] + ") updated successfully." })
+    json_response({ message: "message(#{params[:number]}) updated successfully." })
 
   end
 
   def search
-    @messages = Message.search(@chat.id, params[:query])
+    if !query_params.has_key?(:query) || query_params[:query] == nil
+      json_response({ message: "parameter query is missing" })
+      return
+    end
+
+    @messages = Message.search(@chat.id, query_params[:query])
     json_response(@messages)
   end
 
@@ -54,5 +59,9 @@ class MessagesController < ApplicationController
 
     def message_params
       params.require(:message).permit(:content)
+    end
+
+    def query_params
+      params.permit(:query)
     end
 end
