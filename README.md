@@ -29,6 +29,7 @@ There are three different: ```Apps```, ```Chats``` and ```Messages```. with 1-N 
 * Message
 
 Database Schema
+
 ![Screenshot 2022-04-23 171916](https://user-images.githubusercontent.com/36306083/164935885-37c5c0e0-2097-40fa-b4a4-dd81c51e184f.png)
 # Indexes
 * Created in chats table index on ```appToken``` and ```number``` in the same order. to be able to get chats by ```appToken``` and ```number``` faster or to get chats by ```appToken``` only. this index works for both.
