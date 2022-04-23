@@ -1,24 +1,21 @@
-# README
+# Instabug Backend Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I was asked to develop endpoints(API) to Application Chatting System. In which the user can create Application and get back Application Token. Then use this Token to create chats and messages related to this Application. I have a little Ruby background knowledge, but i did my best to achive techonolgies best practices.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Technologies
+  * Ruby
+  * Rails
+  * Redis
+  * Elasticsearch
+  * Sidekiq
+  * Docker
+# Installation
+# Database
+# API Routes
+# Indexes
+# Racing Condition
+# Redis
+# Elasticsearch
+# Job Queuing
+# Postman Collection
+# How to run the test suite
