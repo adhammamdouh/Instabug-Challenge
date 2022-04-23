@@ -23,7 +23,7 @@ class ChatsController < ApplicationController
     
     ChatJob.perform_later(params[:app_token], @chat_number)
     
-    json_response(@chat_number)
+    json_response({ number: @chat_number })
   end
 
   private
