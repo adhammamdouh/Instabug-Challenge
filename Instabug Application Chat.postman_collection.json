@@ -1,0 +1,493 @@
+{
+	"info": {
+		"_postman_id": "8f8ba81e-6589-400f-ac70-dbaa8015da41",
+		"name": "Instabug Application Chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Application",
+			"item": [
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/apps",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"example: new app\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/apps",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/apps/:token",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"example: update name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/apps/:token",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats/:number",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats",
+								":number"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								},
+								{
+									"key": "number",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats/:chat_number/messages",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats",
+								":chat_number",
+								"messages"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								},
+								{
+									"key": "chat_number",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"example: new message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats/:chat_number/messages",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats",
+								":chat_number",
+								"messages"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								},
+								{
+									"key": "chat_number",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\" : \"example: query\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats/:chat_number/messages/search",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats",
+								":chat_number",
+								"messages",
+								"search"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								},
+								{
+									"key": "chat_number",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats/:chat_number/messages/:number",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats",
+								":chat_number",
+								"messages",
+								":number"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								},
+								{
+									"key": "chat_number",
+									"value": ""
+								},
+								{
+									"key": "number",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"example: update new message\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/apps/:app_token/chats/:chat_number/messages/:number",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"apps",
+								":app_token",
+								"chats",
+								":chat_number",
+								"messages",
+								":number"
+							],
+							"variable": [
+								{
+									"key": "app_token",
+									"value": ""
+								},
+								{
+									"key": "chat_number",
+									"value": ""
+								},
+								{
+									"key": "number",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "http://localhost:3000\n",
+			"type": "string"
+		}
+	]
+}
