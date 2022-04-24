@@ -335,7 +335,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"query\" : \"example: query\"\n}",
+							"raw": "{\n    \"query\" : \"example query\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
