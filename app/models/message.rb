@@ -26,12 +26,12 @@ class Message < ApplicationRecord
   def self.search(chat_id, query, query_terms_count)
     #return {c: chat_id, q: query}
     __elasticsearch__.search(
-    min_score: 1.0 * query_terms_count,
+    min_score: query_terms_count == 1 ? 1.0 : 2.0,
     query: { 
       bool: { 
         must: {
           query_string: {
-            query: "*"+query.to_s+"*",
+            query: "*"+query+"*",
             fields: ['content'],
           }
         },
@@ -41,7 +41,7 @@ class Message < ApplicationRecord
           }
         }
       },
-    }).records.to_json(except: [:id, :chat_id])
+    })#.records.to_json(except: [:id, :chat_id])
   end
 
 end

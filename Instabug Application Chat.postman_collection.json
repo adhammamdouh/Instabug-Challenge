@@ -290,7 +290,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"example: new message\"\n}",
+							"raw": "{\n    \"content\": \"example new message\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -422,7 +422,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"example: update new message\"\n}",
+							"raw": "{\n    \"content\": \"example update new message\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
