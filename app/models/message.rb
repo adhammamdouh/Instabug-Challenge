@@ -41,7 +41,7 @@ class Message < ApplicationRecord
           }
         }
       },
-    })#.records.to_json(except: [:id, :chat_id])
+    }).records.to_json(except: [:id, :chat_id])
   end
 
 end
