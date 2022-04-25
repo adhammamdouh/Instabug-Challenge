@@ -23,8 +23,10 @@ class Message < ApplicationRecord
     self.as_json( only: [ :chat_id, :content ] )
   end
 
-  def self.search(chat_id, query, query_terms_count)
-    #return {c: chat_id, q: query}
+  def self.search(chat_id, query)
+    query = escape_elasticsearch_query(remove_blankspace_query(query))
+    query_terms_count = query.split.length()
+
     __elasticsearch__.search(
     min_score: query_terms_count == 1 ? 1.0 : 2.0,
     query: { 
@@ -43,6 +45,15 @@ class Message < ApplicationRecord
       },
     }).records.to_json(except: [:id, :chat_id])
   end
+
+  private
+    def self.escape_elasticsearch_query(query)
+      return query.gsub(/(\+|\-|\=|&&|\|\||\>|\<|\!|\(|\)|\{|\}|\[|\]|\^|"|~|\*|\?|\:|\\|\/)/, '\\\\\\1')
+    end
+
+    def self.remove_blankspace_query(query)
+      return query.to_s.strip.gsub(/\s+/, " ")
+    end
 
 end
 

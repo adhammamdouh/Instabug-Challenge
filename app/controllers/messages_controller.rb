@@ -44,10 +44,9 @@ class MessagesController < ApplicationController
       return
     end
     
-    @query = query_params[:query].to_s.strip.gsub(/\s+/, " ")
-    @query_terms_count = @query.split.length()
+    @query = query_params[:query]
 
-    @messages = Message.search(@chat.id, @query, @query_terms_count)
+    @messages = Message.search(@chat.id, @query)
     json_response(@messages)
   end
 
