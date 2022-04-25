@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
 
   # GET /messages
   def index
-    @messages = Message.all.where(chat_id: @chat.id)
+    @messages = Message.where(chat_id: @chat.id)
 
     json_response(@messages.to_json(except: [:id, :chat_id]))
   end
@@ -23,7 +23,7 @@ class MessagesController < ApplicationController
     
     MessageJob.perform_later(@chat.id, @message_number, message_params[:content])
     
-    json_response({ number: @message_number })
+    json_response({ number: @message_number }, :created)
     
   end
 
@@ -60,7 +60,7 @@ class MessagesController < ApplicationController
     end
 
     def message_params
-      params.require(:message).permit(:content)
+      params.permit(:content)
     end
 
     def query_params

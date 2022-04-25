@@ -4,7 +4,7 @@ class ChatsController < ApplicationController
 
   # GET /chats
   def index
-    @chats = Chat.all.where(appToken: params[:app_token])
+    @chats = Chat.where(appToken: params[:app_token])
 
     json_response(@chats.to_json(except: [:id]))
   end
@@ -23,7 +23,7 @@ class ChatsController < ApplicationController
     
     ChatJob.perform_later(params[:app_token], @chat_number)
     
-    json_response({ number: @chat_number })
+    json_response({ number: @chat_number }, :created)
   end
 
   private

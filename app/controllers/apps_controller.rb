@@ -32,7 +32,7 @@ class AppsController < ApplicationController
 
     @app.update!(name: app_params[:name])
 
-    json_response({ message: "App(" + params[:token]+ ") update successfully." })
+    json_response({ message: "App(" + params[:token]+ ") updated successfully." })
   end
 
   private
@@ -43,6 +43,6 @@ class AppsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def app_params
-      params.require(:app).permit(:name)
+      params.permit(:name)
     end
 end
