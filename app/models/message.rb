@@ -33,7 +33,7 @@ class Message < ApplicationRecord
       bool: { 
         must: {
           query_string: {
-            query: "*"+query+"*",
+            query: "*#{query}*",
             fields: ['content'],
           }
         },
