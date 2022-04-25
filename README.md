@@ -92,4 +92,11 @@ Here i used ```Sidekiq``` for two main purposes.
 2. Using ```Sidekiq Scheduler``` to schedule a two jobs. The first Job ```App Chat Counter``` to calculate the number of chats connected to each application. The second Job ```Chat Message Counter``` to calculate the number of messages connected to each chat. Both Jobs run every ```50 minutes```.
 
 # How to run the test suite
-TODO
+Created Unit Tests for Application and Chats Controllers/Models Using RSpec.
+**Caution:** test enviroment uses the same database the development enviroment uses. So be careful, becasue I added database cleaner before performing the test cases, and tests that would delete all the records in the database before performing the test cases.
+
+You can run the test case by the following command:
+
+```sudo docker-compose exec app bundle exec rspec```
+
+You have to make sure that you ran the images first before running the test cases.
