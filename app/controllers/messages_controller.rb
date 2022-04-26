@@ -2,19 +2,16 @@ class MessagesController < ApplicationController
   before_action :set_chat
   before_action :set_message, only: [:show, :update]
 
-  # GET /messages
   def index
     @messages = Message.where(chat_id: @chat.id)
 
     json_response(@messages.to_json(except: [:id, :chat_id]))
   end
 
-  # GET /messages/1
   def show
     json_response(@message.to_json(except: [:id, :chat_id]))
   end
 
-  # POST /messages
   def create
     @valiation_message = Message.new(chat_id: @chat.id, number: 0, content: message_params[:content]) 
     raise ActiveRecord::RecordInvalid.new(@valiation_message) if !@valiation_message.valid?
@@ -27,7 +24,6 @@ class MessagesController < ApplicationController
     
   end
 
-  # PATCH/PUT /messages/1
   def update
     @valiation_message = Message.new(chat_id: @chat.id, number: 0, content: message_params[:content]) 
     raise ActiveRecord::RecordInvalid.new(@valiation_message) if !@valiation_message.valid?
