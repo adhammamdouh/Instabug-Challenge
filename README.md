@@ -99,4 +99,4 @@ You can run the test case by the following command:
 
 ```sudo docker-compose exec app bundle exec rspec```
 
-You have to make sure that you ran the images first before running the test cases.
+You have to make sure that the docker images are running first before executing the test cases.
